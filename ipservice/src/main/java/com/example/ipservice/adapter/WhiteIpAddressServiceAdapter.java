@@ -1,5 +1,6 @@
 package com.example.ipservice.adapter;
 
+import com.example.ipservice.aspect.anno.SysLog;
 import com.example.ipservice.port.WhiteIpAddressRepositoryPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class WhiteIpAddressServiceAdapter implements WhiteIpAddressRepositoryPor
     private final static Set<String> ips = new HashSet<String>();
 
     @Override
+    @SysLog
     public boolean addWhiteIpAddress(String ip) {
         ip = ip.trim();
         if (!IPAddressUtil.isIPv4LiteralAddress(ip) && !IPAddressUtil.isIPv6LiteralAddress(ip)) {
@@ -27,17 +29,18 @@ public class WhiteIpAddressServiceAdapter implements WhiteIpAddressRepositoryPor
         synchronized (ips) {
             result = ips.add(ip);
         }
-        if (result) {
-            log.info("added white ip address {}", ip);
-        }
+//        if (result) {
+//            log.info("added white ip address {}", ip);
+//        }
 
         return result;
     }
 
     @Override
+    @SysLog
     public boolean isWhiteIpAddress(String ip) {
         boolean result = ips.contains(ip);
-        log.info("ip {} is in white list? {}", ip, result);
+//        log.info("ip {} is in white list? {}", ip, result);
         return result;
     }
 }
