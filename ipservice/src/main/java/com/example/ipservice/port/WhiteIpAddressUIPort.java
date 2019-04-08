@@ -1,6 +1,5 @@
 package com.example.ipservice.port;
 
-import com.example.ipservice.aspect.anno.SysLog;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
