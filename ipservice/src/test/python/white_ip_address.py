@@ -25,9 +25,13 @@ def add_white_ip():
         reader = csv.reader(f)
         for row in reader:
             ip = str.strip(row[0])
-            response = requests.post("http://localhost:8080/ip/white/add", data=ip)
+            response = send_add_ip_req(ip)
             print ip, '\t\t', response.status_code, '\t\t', response.content
     print '---finish add_white_ip---'
+
+
+def send_add_ip_req(ip):
+    return requests.post("http://localhost:8080/ip/white/add", data=ip)
 
 
 def send_check_ip_req(ips):
@@ -41,16 +45,29 @@ def check_ip():
     ips = [
         '0.0.0.0',
         '1.1.1.1',
-        '2.2.2.2'
+        '2.2.2.2',
+        '192.168.0.1',
+        '192.168.0.254',
+        '192.168.1.254',
+        '192.168.2.254',
+        '192.168.3.254',
+        '192.168.13.254',
     ]
-    with open('ips.csv', 'r') as f:
-        for line in f:
-            ips.append(str.strip(line))
+    # with open('ips.csv', 'r') as f:
+    #     for line in f:
+    #         ips.append(str.strip(line))
     send_check_ip_req(ips)
     print 'finish check_ip'
 
 
 if __name__ == '__main__':
-    generate_ips()
-    add_white_ip()
+    # generate_ips()
+    # add_white_ip()
+    send_add_ip_req('192.168.0.*')
+    send_add_ip_req('192.168.3.*')
+    send_add_ip_req('192.168.55.33')
+    send_add_ip_req('192.168.56.33')
+    send_add_ip_req('192.168.55.34')
+    send_add_ip_req('192.168.13.*')
+
     check_ip()

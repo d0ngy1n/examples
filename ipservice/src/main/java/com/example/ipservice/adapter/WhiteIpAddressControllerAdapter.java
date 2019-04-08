@@ -1,7 +1,7 @@
 package com.example.ipservice.adapter;
 
 import com.example.ipservice.port.WhiteIpAddressUIPort;
-import com.example.ipservice.service.WhiteIpAddressService;
+import com.example.ipservice.service.WhiteIpAddressServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class WhiteIpAddressControllerAdapter implements WhiteIpAddressUIPort {
 
     @Autowired
-    private WhiteIpAddressService whiteIpAddressService;
+    private WhiteIpAddressServiceProxy whiteIpAddressServiceProxy;
 
     @Override
     public boolean addWhiteIpAddress(String ip) {
-        return whiteIpAddressService.addWhiteIpAddress(ip);
+        return whiteIpAddressServiceProxy.addWhiteIpAddress(ip);
     }
 
     @Override
     public boolean isWhiteIpAddress(String ip) {
-        return whiteIpAddressService.isWhiteIpAddress(ip);
+        return whiteIpAddressServiceProxy.isWhiteIpAddress(ip);
     }
 }

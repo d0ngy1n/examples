@@ -1,12 +1,16 @@
 package com.example.ipservice.port;
 
+import com.example.ipservice.domain.IpRule;
+
+import java.util.Set;
+
 /**
  * Created by jacob on 2019/4/3.
  */
 public interface WhiteIpAddressRepositoryPort {
 
-    boolean addWhiteIpAddress(String ip);
+    boolean addWhiteIpAddress(IpRule ip);
 
-    boolean isWhiteIpAddress(String ip);
+    Set<IpRule> queryRules();
 
 }

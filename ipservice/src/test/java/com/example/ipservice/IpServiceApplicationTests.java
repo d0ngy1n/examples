@@ -1,7 +1,7 @@
 package com.example.ipservice;
 
 import com.example.ipservice.adapter.WhiteIpAddressControllerAdapter;
-import com.example.ipservice.service.WhiteIpAddressService;
+import com.example.ipservice.service.WhiteIpAddressIpv4Service;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Strings;
 import org.junit.Before;
@@ -34,10 +34,10 @@ public class IpServiceApplicationTests {
     private static final ReentrantLock LOCK = new ReentrantLock();
     private static final Condition     STOP = LOCK.newCondition();
     @Autowired
-    private AbstractApplicationContext applicationContext;
+    private AbstractApplicationContext      applicationContext;
     @Autowired
-    private WhiteIpAddressService      whiteIpAddressService;
-    private MockMvc                    mvc;
+    private WhiteIpAddressIpv4Service       whiteIpAddressService;
+    private MockMvc                         mvc;
     @Autowired
     private WhiteIpAddressControllerAdapter whiteIpAddressControllerAdapter;
 

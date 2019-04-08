@@ -1,11 +1,12 @@
 package com.example.ipservice.adapter;
 
 import com.example.ipservice.aspect.anno.SysLog;
+import com.example.ipservice.domain.IpRule;
 import com.example.ipservice.port.WhiteIpAddressRepositoryPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sun.net.util.IPAddressUtil;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,31 +17,22 @@ import java.util.Set;
 @Slf4j
 public class WhiteIpAddressServiceAdapter implements WhiteIpAddressRepositoryPort {
 
-    private final static Set<String> ips = new HashSet<String>();
+    private final static Set<IpRule> rules = new HashSet<IpRule>();
 
     @Override
     @SysLog
-    public boolean addWhiteIpAddress(String ip) {
-        ip = ip.trim();
-        if (!IPAddressUtil.isIPv4LiteralAddress(ip) && !IPAddressUtil.isIPv6LiteralAddress(ip)) {
-            return false;
+    public boolean addWhiteIpAddress(IpRule rule) {
+        boolean result;
+        synchronized (rules) {
+            result = rules.add(rule);
         }
-        boolean result = false;
-        synchronized (ips) {
-            result = ips.add(ip);
-        }
-//        if (result) {
-//            log.info("added white ip address {}", ip);
-//        }
-
         return result;
     }
 
+
     @Override
     @SysLog
-    public boolean isWhiteIpAddress(String ip) {
-        boolean result = ips.contains(ip);
-//        log.info("ip {} is in white list? {}", ip, result);
-        return result;
+    public Set<IpRule> queryRules() {
+        return Collections.unmodifiableSet(rules);
     }
 }

@@ -2,3 +2,5 @@ spring:
   application:
     name: ip-service
 
+
+policy.name: IpPatternRulePolicy
