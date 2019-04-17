@@ -29,3 +29,7 @@
 
 ### Data ###
 ips.csv
+
+### gradle ###
+/.gradle/
+/out/
